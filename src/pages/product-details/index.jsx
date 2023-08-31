@@ -44,9 +44,7 @@ function ProductPage() {
         <div className="w-full md:w-1/2 max-w-md border border-purple-50 bg-white rounded shadow-lg">
           <div className="relative h-96 overflow-hidden">
             <img
-              src={
-                "https://fakeimg.pl/400x600/2c3af5/ffffff?text=Ecommerce+Sample+Project"
-              }
+              src={product.image}
               alt={"product description"}
               className="transform duration-500 ease-in-out hover:scale-105 h-full w-full object-cover"
             />
