@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
 
-function ProductPage({ productData = null }) {
+function ProductPage() {
   const [isLoading] = useState(false);
 
   const atcBtnStyle = isLoading

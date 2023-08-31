@@ -1,6 +1,6 @@
 import { FaShoppingCart } from "react-icons/fa";
 
-export default function Navigation() {
+const Navigation = () => {
   return (
     <header className="border-b border-purple-50 sticky top-0 z-20 bg-white">
       <div className="flex items-center justify-between mx-auto max-w-6xl px-6 pb-2 pt-4 md:pt-6">
@@ -33,4 +33,6 @@ export default function Navigation() {
       </div>
     </header>
   );
-}
+};
+
+export default Navigation;
