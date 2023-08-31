@@ -9,8 +9,8 @@ export default function ProductListings() {
           <Fragment key={index}>
             {/* start of a product */}
             <a href={`#`}>
-              <div className="h-120 w-72 rounded shadow-lg mx-auto border border-palette-lighter">
-                <div className="h-72 border-b-2 border-palette-lighter relative overflow-hidden">
+              <div className="h-120 w-72 rounded shadow-lg mx-auto border border-purple-50">
+                <div className="h-72 border-b-2 border-purple-50 relative overflow-hidden">
                   <img
                     src={
                       "https://fakeimg.pl/400x600/2c3af5/ffffff?text=Ecommerce+Sample+Project"
@@ -20,14 +20,14 @@ export default function ProductListings() {
                   />
                 </div>
                 <div className="h-48 relative">
-                  <div className="font-primary text-palette-primary text-2xl pt-4 px-4 font-semibold">
+                  <div className="font-primary text-purple-500 text-2xl pt-4 px-4 font-semibold">
                     Product title
                   </div>
                   <div className="text-lg text-gray-600 p-4 font-primary font-light">
                     Product description
                   </div>
                   <div
-                    className="text-palette-dark font-primary font-medium text-base absolute bottom-0 right-0 mb-4 pl-8 pr-4 pb-1 pt-2 bg-blue-100 
+                    className="text-purple-600 font-primary font-medium text-base absolute bottom-0 right-0 mb-4 pl-8 pr-4 pb-1 pt-2 bg-blue-100 
             rounded-tl-sm triangle"
                   >
                     <span className={"text-lg"}>5000</span>
