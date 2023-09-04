@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { FaTimes } from "react-icons/fa";
-import { CartContext } from "../App";
+import { CartContext } from "../contexts/cart-context";
 
 function CartTable() {
   const { cart, setCart } = useContext(CartContext);

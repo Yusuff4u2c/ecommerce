@@ -6,9 +6,7 @@ import Navigation from "./components/navigation";
 import Footer from "./components/footer";
 import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
-import { createContext, useState } from "react";
-
-export const CartContext = createContext();
+import { CartProvider } from "./contexts/cart-context";
 
 function Layout() {
   return (
@@ -21,10 +19,8 @@ function Layout() {
 }
 
 export default function App() {
-  const [cart, setCart] = useState([]);
-
   return (
-    <CartContext.Provider value={{ cart, setCart }}>
+    <CartProvider>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
@@ -36,6 +32,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
       <Toaster />
-    </CartContext.Provider>
+    </CartProvider>
   );
 }

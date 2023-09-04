@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import { CartContext } from "../App";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/cart-context";
 
 const Navigation = () => {
   const { cart } = useContext(CartContext);

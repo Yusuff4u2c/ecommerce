@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./components/loading";
-import { CartContext } from "../../App";
+import { CartContext } from "../../contexts/cart-context";
 
 function ProductPage() {
   const { cart, setCart } = useContext(CartContext);
