@@ -7,28 +7,12 @@ import Loading from "./components/loading";
 import { CartContext } from "../../contexts/cart-context";
 
 function ProductPage() {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart, decreaseItemInCart } =
+    useContext(CartContext);
   const [isLoading] = useState(false);
   const { productId } = useParams();
   const [productQty, setProductQty] = useState(1);
   const [product, setProduct] = useState();
-
-  const handleAddToCart = () => {
-    if (cart.find((obj) => obj.id === product.id)) {
-      const newQuantity = product.qty + productQty;
-      const upDatedProductQuantity = { ...product, qty: newQuantity };
-      setCart(upDatedProductQuantity);
-      return;
-    } else {
-      const currentProduct = { ...product, qty: productQty };
-
-      cart.length === 0
-        ? setCart([currentProduct])
-        : setCart([...cart, currentProduct]);
-
-      console.log(cart);
-    }
-  };
 
   const fetchProduct = async () => {
     try {
@@ -41,6 +25,11 @@ function ProductPage() {
       console.warn("fetching product ", productId, error);
       toast.error(error.message);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast.success("Product added to cart");
   };
 
   // fetch our products
