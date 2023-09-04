@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function ProductListings() {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ export default function ProductListings() {
       {products.map((product, index) => (
         <Fragment key={index}>
           {/* start of a product */}
-          <a href={`/products/${product.id}`}>
+          <Link to={`/products/${product.id}`}>
             <div className="h-120 w-72 rounded shadow-lg mx-auto border border-purple-50">
               <div className="h-72 border-b-2 border-purple-50 relative overflow-hidden">
                 <img
@@ -47,7 +48,7 @@ export default function ProductListings() {
                 </div>
               </div>
             </div>
-          </a>
+          </Link>
           {/* end */}
         </Fragment>
       ))}

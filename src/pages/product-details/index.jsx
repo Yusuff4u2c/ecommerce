@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "./components/loading";
 import { CartContext } from "../../App";
 
@@ -73,15 +73,15 @@ function ProductPage() {
 
         {/* Product Details */}
         <div className="flex flex-col justify-between h-full w-full md:w-1/2 max-w-xs mx-auto space-y-4 min-h-128">
-          <a
-            href="/"
+          <Link
+            to="/"
             aria-label="back-to-products"
             className="border border-purple-500 text-purple-500 text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex
       justify-center items-center focus:ring-1 focus:ring-purple-100 focus:outline-none w-full hover:bg-purple-50 rounded-sm"
           >
             <FaArrowLeft className="w-4 mr-2 inline-flex" />
             Back To All Products
-          </a>
+          </Link>
 
           <div className=" font-primary">
             <h1 className="leading-relaxed font-extrabold text-3xl text-purple-500 py-2 sm:py-4">

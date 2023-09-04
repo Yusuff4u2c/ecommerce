@@ -1,6 +1,7 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import CartTable from "../../components/cart-table";
 import PageTitle from "../../components/page-title";
+import { Link } from "react-router-dom";
 
 function CartPage() {
   return (
@@ -18,14 +19,15 @@ function CartPage() {
           <FaArrowRight className="w-4 ml-2 inline-flex" />
         </a>
 
-        <a
+        <Link
+          to={"/"}
           aria-label="back-to-products"
           className="border border-purple-500 text-purple-500 text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex 
       justify-center items-center focus:ring-1 focus:ring-purple-100 focus:outline-none w-full hover:bg-purple-50 rounded-sm"
         >
           <FaArrowLeft className="w-4 mr-2 inline-flex" />
           Back To All Products
-        </a>
+        </Link>
       </div>
     </div>
   );
