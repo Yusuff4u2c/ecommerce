@@ -1,14 +1,34 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Loading from "./components/loading";
+import { CartContext } from "../../App";
 
 function ProductPage() {
+  const { cart, setCart } = useContext(CartContext);
   const [isLoading] = useState(false);
   const { productId } = useParams();
+  const [productQty, setProductQty] = useState(1);
   const [product, setProduct] = useState();
+
+  const handleAddToCart = () => {
+    if (cart.find((obj) => obj.id === product.id)) {
+      const newQuantity = product.qty + productQty;
+      const upDatedProductQuantity = { ...product, qty: newQuantity };
+      setCart(upDatedProductQuantity);
+      return;
+    } else {
+      const currentProduct = { ...product, qty: productQty };
+
+      cart.length === 0
+        ? setCart([currentProduct])
+        : setCart([...cart, currentProduct]);
+
+      console.log(cart);
+    }
+  };
 
   const fetchProduct = async () => {
     try {
@@ -92,12 +112,19 @@ function ProductPage() {
                   name="quantity"
                   min="1"
                   step="1"
-                  value={1}
+                  onChange={(e) => {
+                    setProductQty(e.currentTarget.value);
+                  }}
+                  value={productQty}
                   className="text-gray-900 py-2 px-2 border border-gray-300 w-16 rounded-sm focus:border-purple-100 focus:ring-purple-100"
                 />
               </div>
             </div>
-            <button className={atcBtnStyle} aria-label="cart-button">
+            <button
+              className={atcBtnStyle}
+              aria-label="cart-button"
+              onClick={handleAddToCart}
+            >
               Add To Cart
               <FaShoppingCart className="w-5 ml-2" />
             </button>
