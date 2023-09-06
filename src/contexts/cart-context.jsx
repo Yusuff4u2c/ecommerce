@@ -11,6 +11,40 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
+    if (!product || !product.id)
+      throw Error("You must specify the product to add.");
+
+    const itemIndex = cart.findIndex(
+      (cartItem) => cartItem.product.id === product.id
+    );
+    if (itemIndex > -1) {
+      return false;
+    } else {
+      const cartItem = { product, quantity: 1 };
+
+      setCart([cartItem]);
+
+      return true;
+    }
+  };
+
+  const removeFromCart = (product) => {
+    const itemIndex = cart.findIndex(
+      (cartItem) => cartItem.product.id === product.id
+    );
+    if (itemIndex > -1) {
+      const newCart = cart.splice(itemIndex, 1);
+      setCart(newCart);
+      return true;
+    }
+
+    return false;
+  };
+
+  const increaseItemInCart = (product) => {
+    if (!product || !product.id)
+      throw Error("You must specify the product to add.");
+
     const itemIndex = cart.findIndex(
       (cartItem) => cartItem.product.id === product.id
     );
@@ -25,26 +59,16 @@ export const CartProvider = ({ children }) => {
       cart[itemIndex].quantity = cart[itemIndex].quantity + 1;
       const newCart = [...cart];
       setCart(newCart);
-    } else {
-      const cartItem = { product, quantity: 1 };
-
-      setCart([cartItem]);
-
-      console.log(cartItem);
+      return true;
     }
-  };
 
-  const removeFromCart = (product) => {
-    const itemIndex = cart.findIndex(
-      (cartItem) => cartItem.product.id === product.id
-    );
-    if (itemIndex > -1) {
-      const newCart = cart.splice(itemIndex, 1);
-      setCart(newCart);
-    }
+    return false;
   };
 
   const decreaseItemInCart = (product) => {
+    if (!product || !product.id)
+      throw Error("You must specify the product to add.");
+
     const itemIndex = cart.findIndex(
       (cartItem) => cartItem.product.id === product.id
     );
@@ -57,14 +81,29 @@ export const CartProvider = ({ children }) => {
         const newCart = cart.splice(itemIndex, 1);
         setCart(newCart);
       }
+
+      return true;
     }
+
+    return false;
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
+
+  const getItemInCart = (id) => {
+    const itemIndex = cart.findIndex((cartItem) => cartItem.product.id === id);
+    if (itemIndex > -1) return cart[itemIndex];
+    return null;
   };
 
   // Read data from localStorage when the component mounts
   useEffect(() => {
     const storedData = localStorage.getItem("cart");
     if (storedData) {
-      setCart(JSON.parse(storedData));
+      const cart = JSON.parse(storedData);
+      if (cart.length > 0) setCart(cart);
     }
   }, []);
 
@@ -75,7 +114,15 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, decreaseItemInCart }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        increaseItemInCart,
+        decreaseItemInCart,
+        clearCart,
+        getItemInCart,
+      }}
     >
       {children}
     </CartContext.Provider>

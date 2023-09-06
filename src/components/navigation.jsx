@@ -25,7 +25,7 @@ const Navigation = () => {
         <div>
           <Link to="/cart" className="relative" aria-label="cart">
             <FaShoppingCart className="text-purple-500 w-6 m-auto" />
-            <div className="absolute top-0 right-0 text-xs bg-yellow-300 text-gray-900 font-semibold rounded-full py-1 px-2 transform translate-x-10 -translate-y-3">
+            <div className="absolute top-0 right-0 w-5 h-5 flex items-center justify-center text-xs bg-yellow-300 text-black font-semibold rounded-full transform translate-x-[80%] -translate-y-3">
               {cart.length}
             </div>
           </Link>
