@@ -7,6 +7,7 @@ import Footer from "./components/footer";
 import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
 import { CartProvider } from "./contexts/cart-context";
+import QueryProvider from "./contexts/QueryProvider";
 
 function Layout() {
   return (
@@ -20,18 +21,20 @@ function Layout() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/products/:productId" element={<ProductPage />} />
-            <Route path="/products/all" element={<LandingPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      <Toaster />
-    </CartProvider>
+    <QueryProvider>
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/products/:productId" element={<ProductPage />} />
+              <Route path="/products/all" element={<LandingPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <Toaster />
+      </CartProvider>
+    </QueryProvider>
   );
 }
