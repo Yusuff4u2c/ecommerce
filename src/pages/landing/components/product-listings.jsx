@@ -37,7 +37,7 @@ export default function ProductListings() {
                 />
               </div>
               <div className="h-48 relative">
-                <div className="font-primary text-purple-500 text-2xl pt-4 px-4 font-semibold">
+                <div className="font-primary text-purple-500 text-2xl pt-4 px-4 font-semibold line-clamp-3">
                   {product.title}
                 </div>
                 <div
