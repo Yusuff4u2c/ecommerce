@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProductListings() {
   const {
@@ -8,6 +9,8 @@ export default function ProductListings() {
     data: products,
     error,
   } = useFetch("https://fakestoreapi.com/products");
+
+  useQuery();
 
   if (isLoading) return <p className="text-center text-5xl">Loading...</p>;
   if (error) return <p className="text-center text-5xl">Error...</p>;
