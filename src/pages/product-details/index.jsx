@@ -7,6 +7,8 @@ import { CartContext } from "../../contexts/cart-context";
 import Button from "../../components/button";
 import Error from "./components/error";
 import useFetch from "../../hooks/useFetch";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function ProductPage() {
   const {
@@ -31,11 +33,21 @@ function ProductPage() {
     else toast.success("Product already added to cart");
   };
 
+  const fetchProductDetails = async () => {
+    const response = await axios.get(
+      `https://fakestoreapi.com/products/${productId}`
+    );
+    return response.data;
+  };
+
   const {
-    isLoading,
-    error,
     data: product,
-  } = useFetch(`https://fakestoreapi.com/products/${productId}`);
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ["products", productId],
+    queryFn: fetchProductDetails,
+  });
 
   // fetch our products
   useEffect(() => {
@@ -44,7 +56,7 @@ function ProductPage() {
 
   if (isLoading) return <Loading />;
 
-  if (error) return <Error />;
+  if (isError) return <Error />;
 
   if (!product) return <p className="text-center text-5xl">Product Invalid</p>;
 

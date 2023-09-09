@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import useFetch from "../../../hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
