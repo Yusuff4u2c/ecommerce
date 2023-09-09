@@ -22,7 +22,8 @@ export const CartProvider = ({ children }) => {
     } else {
       const cartItem = { product, quantity: 1 };
 
-      setCart([cartItem]);
+      setCart([...cart, cartItem]);
+      console.log(cart);
 
       return true;
     }
