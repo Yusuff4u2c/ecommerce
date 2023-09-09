@@ -1,4 +1,3 @@
-import { FaArrowLeft, FaShoppingCart } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 
 export default function Loading() {

@@ -1,28 +1,19 @@
-import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
 
 export default function ProductListings() {
-  const [products, setProducts] = useState([]);
+  const {
+    isLoading,
+    data: products,
+    error,
+  } = useFetch("https://fakestoreapi.com/products");
 
-  const fetchProducts = async () => {
-    try {
-      // https://fakestoreapi.com/products
-      const response = await axios.get("https://fakestoreapi.com/products");
-      setProducts(response.data);
-    } catch (error) {
-      console.warn("fetching products ", error);
-      toast.error(error.message);
-    }
-  };
+  if (isLoading) return <p className="text-center text-5xl">Loading...</p>;
+  if (error) return <p className="text-center text-5xl">Error...</p>;
 
-  // fetch our products
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  if (!products) return SKeleon;
+  if (!products)
+    return <p className="text-center text-5xl">Products not found</p>;
 
   return (
     <div className="py-12 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
@@ -19,7 +18,7 @@ function ProductPage() {
   } = useContext(CartContext);
   const [quantityInCart, setQuantityInCart] = useState();
   const { productId } = useParams();
-  const [productQty, setProductQty] = useState(1);
+  const [setProductQty] = useState(1);
 
   const getQuantityInCart = (product) => {
     const cartItem = getItemInCart(product.id);
