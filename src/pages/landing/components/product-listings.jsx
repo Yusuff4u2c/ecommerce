@@ -2,18 +2,22 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function ProductListings() {
-  const {
-    isLoading,
-    data: products,
-    error,
-  } = useFetch("https://fakestoreapi.com/products");
+  const fetchProduct = async () => {
+    let response = await axios.get("https://fakestoreapi.com/products");
+    return response.data;
+  };
 
-  useQuery();
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery({ queryKey: ["products"], queryFn: fetchProduct });
 
   if (isLoading) return <p className="text-center text-5xl">Loading...</p>;
-  if (error) return <p className="text-center text-5xl">Error...</p>;
+  if (isError) return <p className="text-center text-5xl">Error...</p>;
 
   if (!products)
     return <p className="text-center text-5xl">Products not found</p>;
