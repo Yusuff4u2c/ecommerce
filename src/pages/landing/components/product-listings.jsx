@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { apiClient } from "../../../api/client";
 
 export default function ProductListings() {
   const fetchProduct = async () => {
-    let response = await axios.get("https://fakestoreapi.com/products");
+    let response = await apiClient.get("/products");
     return response.data;
   };
 

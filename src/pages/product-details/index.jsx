@@ -6,9 +6,8 @@ import Loading from "./components/loading";
 import { CartContext } from "../../contexts/cart-context";
 import Button from "../../components/button";
 import Error from "./components/error";
-import useFetch from "../../hooks/useFetch";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { apiClient } from "../../api/client";
 
 function ProductPage() {
   const {
@@ -34,9 +33,7 @@ function ProductPage() {
   };
 
   const fetchProductDetails = async () => {
-    const response = await axios.get(
-      `https://fakestoreapi.com/products/${productId}`
-    );
+    const response = await apiClient.get(`/products/${productId}`);
     return response.data;
   };
 
