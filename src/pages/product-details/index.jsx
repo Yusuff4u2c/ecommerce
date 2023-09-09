@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 import Loading from "./components/loading";
 import { CartContext } from "../../contexts/cart-context";
 import Button from "../../components/button";
+import Error from "./components/error";
+import useFetch from "../../hooks/useFetch";
 
 function ProductPage() {
   const {
@@ -16,29 +18,12 @@ function ProductPage() {
     getItemInCart,
   } = useContext(CartContext);
   const [quantityInCart, setQuantityInCart] = useState();
-  const [isLoading] = useState(false);
   const { productId } = useParams();
   const [productQty, setProductQty] = useState(1);
-  const [product, setProduct] = useState();
 
   const getQuantityInCart = (product) => {
     const cartItem = getItemInCart(product.id);
     if (cartItem) setQuantityInCart(cartItem.quantity);
-  };
-
-  const fetchProduct = async () => {
-    try {
-      // https://fakestoreapi.com/products
-      const response = await axios.get(
-        `https://fakestoreapi.com/products/${productId}`
-      );
-      setProduct(response.data);
-
-      getQuantityInCart(response.data);
-    } catch (error) {
-      console.warn("fetching product ", productId, error);
-      toast.error(error.message);
-    }
   };
 
   const handleAddToCart = () => {
@@ -47,17 +32,22 @@ function ProductPage() {
     else toast.success("Product already added to cart");
   };
 
-  // fetch our products
-  useEffect(() => {
-    fetchProduct();
-  }, []);
+  const {
+    isLoading,
+    error,
+    data: product,
+  } = useFetch(`https://fakestoreapi.com/products/${productId}`);
 
   // fetch our products
   useEffect(() => {
     if (product) getQuantityInCart(product);
   }, [cart, product]);
 
-  if (!product) return <Loading />;
+  if (isLoading) return <Loading />;
+
+  if (error) return <Error />;
+
+  if (!product) return <p className="text-center text-5xl">Product Invalid</p>;
 
   return (
     <div className="min-h-screen py-12 sm:pt-20">

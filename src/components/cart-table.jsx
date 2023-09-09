@@ -1,20 +1,13 @@
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import { CartContext } from "../contexts/cart-context";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext } from "react";
 import { toast } from "react-hot-toast";
 import Button from "../components/button";
 import { formatMoney } from "../libs/utilities";
 
 function CartTable() {
-  const {
-    cart,
-    addToCart,
-    removeFromCart,
-    increaseItemInCart,
-    decreaseItemInCart,
-    clearCart,
-    getItemInCart,
-  } = useContext(CartContext);
+  const { cart, removeFromCart, increaseItemInCart, decreaseItemInCart } =
+    useContext(CartContext);
 
   const subTotal = cart.reduce((accumulator, cartItem) => {
     const productPrice = cartItem.product.price;
