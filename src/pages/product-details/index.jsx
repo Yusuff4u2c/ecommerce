@@ -33,7 +33,6 @@ function ProductPage() {
         `https://fakestoreapi.com/products/${productId}`
       );
       setProduct(response.data);
-      console.log(cart);
 
       getQuantityInCart(response.data);
     } catch (error) {

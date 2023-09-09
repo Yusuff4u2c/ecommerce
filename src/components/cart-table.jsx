@@ -1,9 +1,20 @@
-import { FaTimes } from "react-icons/fa";
+import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import { CartContext } from "../contexts/cart-context";
 import { Fragment, useContext, useState } from "react";
+import { toast } from "react-hot-toast";
+import Button from "../components/button";
+import { formatMoney } from "../libs/utilities";
 
 function CartTable() {
-  const { cart, removeFromCart } = useContext(CartContext);
+  const {
+    cart,
+    addToCart,
+    removeFromCart,
+    increaseItemInCart,
+    decreaseItemInCart,
+    clearCart,
+    getItemInCart,
+  } = useContext(CartContext);
 
   const subTotal = cart.reduce((accumulator, cartItem) => {
     const productPrice = cartItem.product.price;
@@ -13,7 +24,7 @@ function CartTable() {
 
   // const removed = removeFromCart(cart);
   return (
-    <div className="min-h-80 max-w-2xl my-4 sm:my-8 mx-auto w-full">
+    <div className="min-h-80 max-w-4xl my-4 sm:my-8 mx-auto w-full">
       <table className="mx-auto">
         <thead>
           <tr className="uppercase text-xs sm:text-sm text-purple-500 border-b border-purple-100">
@@ -43,16 +54,34 @@ function CartTable() {
                   </a>
                 </td>
                 <td className="font-primary font-medium px-4 sm:px-6 py-4">
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    id="variant-quantity"
-                    name="variant-quantity"
-                    min="1"
-                    step="1"
-                    value={cartItem.quantity}
-                    className="text-gray-900 form-input border border-gray-300 w-16 rounded-sm focus:border-purple-100 focus:ring-purple-100"
-                  />
+                  <div className="flex">
+                    <Button
+                      iconLeft={<FaMinus />}
+                      disabled={cartItem.quantity === 1}
+                      onClick={() => {
+                        if (decreaseItemInCart(cartItem.product))
+                          toast.success("Product quantity updated");
+                      }}
+                    />
+                    <input
+                      type="text"
+                      id="quantity"
+                      name="quantity"
+                      min="1"
+                      step="1"
+                      onChange={console.log}
+                      value={cartItem.quantity}
+                      disabled
+                      className="text-gray-900 py-2 px-6 border border-gray-300 w-16 rounded-sm focus:border-purple-100 focus:ring-purple-100 h-11"
+                    />
+                    <Button
+                      iconLeft={<FaPlus />}
+                      onClick={() => {
+                        if (increaseItemInCart(cartItem.product))
+                          toast.success("Product quantity updated");
+                      }}
+                    />
+                  </div>
                 </td>
                 <td className="font-primary text-base font-light px-4 sm:px-6 py-4 hidden sm:table-cell">
                   <span className="text-lg">
@@ -64,7 +93,8 @@ function CartTable() {
                     aria-label="delete-item"
                     className=""
                     onClick={() => {
-                      removeFromCart(cartItem);
+                      if (removeFromCart(cartItem.product))
+                        toast.success("Item removed from cart");
                     }}
                   >
                     <FaTimes className="w-8 h-8 text-purple-500 border border-purple-500 p-1 hover:bg-purple-50" />
@@ -81,7 +111,7 @@ function CartTable() {
               Subtotal
             </td>
             <td className="font-primary text-lg text-purple-500 font-medium px-4 sm:px-6 py-4">
-              <span className="text-lg">{subTotal}</span>
+              <span className="text-lg">{formatMoney(subTotal)}</span>
             </td>
             <td></td>
           </tr>

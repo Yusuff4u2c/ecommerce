@@ -17,6 +17,7 @@ export const CartProvider = ({ children }) => {
     const itemIndex = cart.findIndex(
       (cartItem) => cartItem.product.id === product.id
     );
+
     if (itemIndex > -1) {
       return false;
     } else {
@@ -33,9 +34,10 @@ export const CartProvider = ({ children }) => {
     const itemIndex = cart.findIndex(
       (cartItem) => cartItem.product.id === product.id
     );
+
     if (itemIndex > -1) {
-      const newCart = cart.splice(itemIndex, 1);
-      setCart(newCart);
+      cart.splice(itemIndex, 1);
+      setCart([...cart]);
       return true;
     }
 

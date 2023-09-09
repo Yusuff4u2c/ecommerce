@@ -2,6 +2,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import CartTable from "../../components/cart-table";
 import PageTitle from "../../components/page-title";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/cart-context";
 
 function CartPage() {
   return (
