@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { FaArrowLeft, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./components/loading";
-import { CartContext } from "../../contexts/cart-context";
+import { CartContext } from "../../contexts/CartContext";
 import Button from "../../components/button";
 import Error from "./components/error";
 import { useQuery } from "@tanstack/react-query";

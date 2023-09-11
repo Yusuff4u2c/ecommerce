@@ -2,8 +2,6 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import CartTable from "../../components/cart-table";
 import PageTitle from "../../components/page-title";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart-context";
 
 function CartPage() {
   return (
@@ -11,15 +9,15 @@ function CartPage() {
       <PageTitle text="Your Cart" />
       <CartTable />
       <div className="max-w-sm mx-auto space-y-4 px-2">
-        <a
-          href={"#"}
+        <Link
+          to={"/checkout"}
           aria-label="checkout-products"
           className="bg-purple-500 text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex 
       justify-center items-center focus:ring-1 focus:ring-purple-100 focus:outline-none w-full hover:bg-purple-600 rounded-sm"
         >
           Check Out
           <FaArrowRight className="w-4 ml-2 inline-flex" />
-        </a>
+        </Link>
 
         <Link
           to={"/"}

@@ -112,6 +112,7 @@ export const CartProvider = ({ children }) => {
 
   // Write data to localStorage whenever it changes
   useEffect(() => {
+    if (typeof cart !== "object") return;
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 

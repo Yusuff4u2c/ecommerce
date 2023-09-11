@@ -1,5 +1,5 @@
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
-import { CartContext } from "../contexts/cart-context";
+import { CartContext } from "../contexts/CartContext";
 import { Fragment, useContext } from "react";
 import { toast } from "react-hot-toast";
 import Button from "../components/button";
