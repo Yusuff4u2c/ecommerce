@@ -40,3 +40,26 @@ export default function App() {
     </QueryProvider>
   );
 }
+async function uploadMultiple(formData) {
+  try {
+    const response = await fetch("https://example.com/posts", {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    console.log("Success:", result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// const photos = document.querySelector('input[type="file"][multiple]');
+// const formData = new FormData();
+
+// formData.append("title", "My Vegas Vacation");
+
+// for (const [i, photo] of Array.from(photos.files).entries()) {
+//   formData.append(`photos_${i}`, photo);
+// }
+
+// uploadMultiple(formData);
