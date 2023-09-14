@@ -1,21 +1,18 @@
-import {
-  FaArrowLeft,
-  FaArrowRight,
-  FaMinus,
-  FaPlus,
-  FaTimes,
-} from "react-icons/fa";
+import {} from "react-icons/fa";
 import PageTitle from "../../components/page-title";
 import { Link } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 import { toast } from "react-hot-toast";
-import Button from "../../components/button";
-import { Fragment } from "react";
+// import Button from "../../components/button";
+import { Fragment, useState } from "react";
 import { formatMoney } from "../../libs/utilities";
 import { FlutterWaveButton, closePaymentModal } from "flutterwave-react-v3";
 
 function Checkout() {
   const { cart } = useCart();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const subTotal = cart.reduce((accumulator, cartItem) => {
     const productPrice = cartItem.product.price;
@@ -24,15 +21,15 @@ function Checkout() {
   }, 0);
 
   const config = {
-    public_key: "FLWPUBK_TEST-7f7f069493b78f7a8422ba0d2b6b2e94-X",
+    public_key: "FLWPUBK_TEST-c5cf2f5c18c8e5c390fcb65a30295aa1-X",
     tx_ref: Date.now(),
-    amount: 100,
+    amount: formatMoney(subTotal),
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
-      email: "josephajibodu@gmail.com",
-      phone_number: "08167297386",
-      name: "Joseph Ajibodu",
+      email: email,
+      phone_number: phoneNumber,
+      name: name,
     },
     customizations: {
       title: "My store",
@@ -112,6 +109,9 @@ function Checkout() {
           <div className="flex flex-col gap-2 mb-4">
             <label htmlFor="name">Name</label>
             <input
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
               type="text"
               id="name"
               name="name"
@@ -122,6 +122,9 @@ function Checkout() {
           <div className="flex flex-col gap-2 mb-4">
             <label htmlFor="email">Email</label>
             <input
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               type="text"
               id="email"
               name="email"
@@ -129,9 +132,23 @@ function Checkout() {
               className="text-gray-900 py-2 px-6 border border-gray-300 rounded-sm focus:border-purple-100 focus:ring-purple-100 h-11 w-full max-w-sm"
             />
           </div>
-          <Button type={"button"} className={"w-fit"}>
+          <div className="flex flex-col gap-2 mb-4">
+            <label htmlFor="name">Phone Number</label>
+            <input
+              onChange={(e) => {
+                setPhoneNumber(e.target.value);
+              }}
+              value={phoneNumber}
+              type="text"
+              id="phone_number"
+              name="phone_number"
+              placeholder="Your Phone Number"
+              className="text-gray-900 py-2 px-6 border border-gray-300 rounded-sm focus:border-purple-100 focus:ring-purple-100 h-11 w-full max-w-sm"
+            />
+          </div>
+          {/* <Button type={"button"} className={"w-fit"}>
             Pay ₦{formatMoney(subTotal)} Now
-          </Button>
+          </Button> */}
 
           <FlutterWaveButton
             className="py-2 px-3 my-3 h-11 bg-purple-500 text-white rounded-sm font-primary font-semibold text-xl flex justify-center items-center  hover:bg-purple-600 disabled:bg-purple-600/20 disabled:cursor-not-allowed cursor-pointer w-fit"
